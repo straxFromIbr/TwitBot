@@ -25,9 +25,9 @@ cat $tmp_prev $tmp_new |\
         uniq |\
         shuf > tweets.txt
     
-set -l tweet (echo -e (cat  tweets.txt | ./markovbot.py ))
+set -l tweet (echo -e (cat  tweets.txt | $HOME/.venvs/general_venv/bin/python3 ./markovbot.py ))
 echo $tweet
-if ! test -z $tweet
+if not test -z $tweet
     $HOME/.rbenv/shims/twurl -d "status=[BOT] $tweet" /1.1/statuses/update.json  -P $HTTP_PROXY > $tmp_log
 end
 

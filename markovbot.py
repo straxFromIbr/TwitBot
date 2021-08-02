@@ -1,12 +1,11 @@
-#!/home/hagayuya/.venvs/general_venv/bin/python3
 import sys
 import re
-
 
 import MeCab
 import markovify
 
-parser = MeCab.Tagger('-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd')
+parser = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
+
 
 def gettext():
     textlist = list(sys.stdin.read())
@@ -23,11 +22,10 @@ def split_input_text(text):
     ]
 
     for word in words:
-        word = re.sub(r"[（）「」『』｛｝【】＠”’｜・]", "", word)  # 全角のカッコ、各種記号は削除
-        word = re.sub(r"[()\[\]{}@\'\"|~-]", "", word)  # 半角のカッコ、各種記号は削除
+        word = re.sub(r"[（）「」『』｛｝【】＠”’｜・]", "", word)
+        word = re.sub(r"[()\[\]{}@\'\"|~-]", "", word)
         word = re.sub(r"\s", "", word)
-
-        word = re.sub(r"。", "。\n", word)  # 句点は改行コードを追加
+        word = re.sub(r"。", "。\n", word)
         word += " "
         splitted_text += word
 
@@ -35,8 +33,7 @@ def split_input_text(text):
 
 
 if __name__ == "__main__":
-    splitted_text = gettext()
-    text_model = markovify.NewlineText(splitted_text, state_size=3)
+    text_model = markovify.NewlineText(gettext(), state_size=3)
     sys.stdout.write(
         text_model.make_short_sentence(
             130,

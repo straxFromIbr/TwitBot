@@ -9,7 +9,7 @@
     - markovify : 0.9.3
 
 ## Execution
-2 . 必要ライブラリのインストール。`pip`と`gem`
+2.  必要ライブラリのインストール。`pip`と`gem`
 1. `twurl`の認証. 要Twitter API
 2. `twitbot.sh`ファイル中のパスの設定
 3. `bash twitbot.sh`

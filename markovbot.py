@@ -36,7 +36,7 @@ if __name__ == "__main__":
     text_model = markovify.NewlineText(gettext(), state_size=3)
     sys.stdout.write(
         text_model.make_short_sentence(
-            130,
+            140,
             tries=100,
         ).replace(" ", ""),
     )

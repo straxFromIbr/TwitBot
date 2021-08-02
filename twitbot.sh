@@ -19,6 +19,7 @@ $HOME/.rbenv/shims/twurl '/1.1/statuses/home_timeline.json?count=50' -P $HTTP_PR
     sed -e 's/http[\/\:\.0-9a-zA-Z]*//g' |\
     sed -e 's/#[^ ]*//g' |\
     sed -e 's/\\\n/ /g' |\
+    sed -e 's/\\/ /g' |\
     sed -e 's/"//g' > $tmp_new
 
 cp tweets.txt $tmp_prev
@@ -27,15 +28,17 @@ cat $tmp_prev $tmp_new |\
         uniq |\
         shuf > tweets.txt
     
-tweet=$(cat  tweets.txt | $HOME/.venvs/general_venv/bin/python3 ./markovbot.py )
-echo $tweet
+for i in {1..3} ; do
 
-if ! test  -z $tweet  ; then
-    $HOME/.rbenv/shims/twurl -d "status=[BOT] $tweet" /1.1/statuses/update.json  -P $HTTP_PROXY > $tmp_log
-    echo 'tweet:'$tweet
-fi
+    tweet=$(cat  tweets.txt | $HOME/.venvs/general_venv/bin/python3 ./markovbot.py )
+    echo $tweet
+    if ! test  -z $tweet  ; then
+        $HOME/.rbenv/shims/twurl -d "status=[BOT] $tweet" /1.1/statuses/update.json  -P $HTTP_PROXY > $tmp_log
+        echo 'tweet:'$tweet
+    fi
 
-cat $tmp_log | jq -r '.created_at, .id, .text' | tr '\n' ', '  >> ./twitbot.log
+    cat $tmp_log | jq -r '.created_at, .id, .text' | tr '\n' ', '  >> ./twitbot.log
+done
 
 
 

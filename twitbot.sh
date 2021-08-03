@@ -10,7 +10,7 @@ tmp_new=$(mktemp)
 tmp_prev=$(mktemp)
 tmp_log=$(mktemp)
 tmp_tl=$(mktemp)
-$HOME/.rbenv/shims/twurl '/1.1/statuses/home_timeline.json?count=50' -P $HTTP_PROXY |\
+$HOME/.rbenv/shims/twurl '/1.1/statuses/home_timeline.json?count=30' -P $HTTP_PROXY |\
     jq '.[].text'  |\
     grep -v '[BOT]'|\
     grep -v 質問箱 |\
@@ -18,10 +18,11 @@ $HOME/.rbenv/shims/twurl '/1.1/statuses/home_timeline.json?count=50' -P $HTTP_PR
     sed -e 's/@[A-Za-z0-9_]*//g'|\
     sed -e 's/http[\/\:\.0-9a-zA-Z]*//g' |\
     sed -e 's/#[^ ]*//g' |\
-    sed -e 's/\\\n/ /g' |\
+    sed -e 's/\\n/ /g' |\
     sed -e 's/\\/ /g' |\
     sed -e 's/"//g' > $tmp_new
 
+cat $tmp_new | wc -l
 cp tweets.txt $tmp_prev
 cat $tmp_prev $tmp_new |\
         sort |\

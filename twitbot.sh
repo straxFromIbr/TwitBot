@@ -29,7 +29,7 @@ cat $tmp_prev $tmp_new |\
         uniq |\
         shuf > tweets.txt
     
-for i in {1..3} ; do
+for i in {1..2} ; do
 
     tweet=$(cat  tweets.txt | $HOME/.venvs/general_venv/bin/python3 ./markovbot.py )
     echo $tweet

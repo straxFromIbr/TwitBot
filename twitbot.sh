@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+
 cd $HOME/TwitBot
 
 if test -z $HTTP_PROXY ; then

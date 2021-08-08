@@ -11,7 +11,7 @@ tmp_new=$(mktemp)
 tmp_prev=$(mktemp)
 tmp_log=$(mktemp)
 tmp_tl=$(mktemp)
-$HOME/.rbenv/shims/twurl '/1.1/statuses/home_timeline.json?count=30' -P $HTTP_PROXY |\
+$HOME/.rbenv/shims/twurl '/1.1/statuses/home_timeline.json?count=60' -P $HTTP_PROXY |\
     jq '.[].text'  |\
     grep -v '[BOT]'|\
     grep -v 質問箱 |\
@@ -30,7 +30,7 @@ cat $tmp_prev $tmp_new |\
         uniq |\
         shuf > tweets.txt
     
-for i in {1..2} ; do
+for i in {1..1} ; do
 
     tweet=$(cat  tweets.txt | $HOME/.venvs/general_venv/bin/python3 ./markovbot.py )
     echo $tweet

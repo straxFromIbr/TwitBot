@@ -1,15 +1,15 @@
-import sys
 import re
+import sys
 
-import MeCab
 import markovify
+import MeCab
 
 parser = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
 
 
 def gettext():
     textlist = list(sys.stdin.read())
-    return split_input_text("".join(textlist * 10))
+    return split_input_text("".join(textlist))
 
 
 def split_input_text(text):

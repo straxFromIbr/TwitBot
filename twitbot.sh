@@ -27,8 +27,7 @@ cat $tmp_new | wc -l
 cp tweets.txt $tmp_prev
 cat $tmp_prev $tmp_new |\
         sort |\
-        uniq |\
-        shuf > tweets.txt
+        uniq > tweets.txt
     
 for i in {1..1} ; do
 

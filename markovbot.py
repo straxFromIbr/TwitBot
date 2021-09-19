@@ -3,6 +3,7 @@ import sys
 
 import markovify
 import MeCab
+import neologdn
 
 parser = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
 
@@ -17,7 +18,7 @@ def split_input_text(text):
     splitted_text = ""
     words = [
         morph.split("\t")[0]
-        for morph in parser.parse(text).split("\n")
+        for morph in parser.parse(neologdn.normalize(text)).split("\n")
         if len(morph) != 0 and morph != "EOS"
     ]
 

@@ -39,6 +39,7 @@ for i in {1..1} ; do
     fi
 
     cat $tmp_log | jq -r '.created_at, .id, .text' | tr '\n' ', '  >> ./twitbot.log
+    echo -e '\n' >> ./twitbot.log
 done
 
 
